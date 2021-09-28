@@ -1,5 +1,7 @@
 <html>
+
 <body>
+
     <head>
         <meta charset="utf-8">
     </head>
@@ -36,20 +38,25 @@
 
         if (ifIdExist($id)) {
             header("Location: http://localhost/tomer/chooseRole.php");
-        }
-        else{
+        } else {
             echo "This ID does not exist";
         }
     }
-    
-    
+
+
     function ifIdExist($id)
     {
-        $wrong = "";
-        if(!$id || $id ==""){
+        if (!$id || $id == "") {
             return false;
         }
-        return true;
+        $string = file_get_contents("employees.json");
+        $json_a = json_decode($string, true);
+        foreach ($json_a['employees'] as $employee) {
+            if ($id == ($employee['id'])) {
+                return true;
+            }
+        }
+        return false;
     }
     ?>
 
